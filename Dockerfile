@@ -1,10 +1,9 @@
-FROM debian:bookworm-slim
+FROM ubuntu:24.04
 
 LABEL org.opencontainers.image.source=https://github.com/optical002/godot-scala-ci-runner
 LABEL org.opencontainers.image.description="CI runner for building Godot with Kotlin/JVM support"
 LABEL org.opencontainers.image.licenses=MIT
 
-# Prevent interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
 ENV GODOT_VERSION=4.5.1.stable.jvm.0.14.3
 
@@ -17,11 +16,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxinerama1 \
     libxrandr2 \
     libfontconfig1 \
+    patchelf \
     && rm -rf /var/lib/apt/lists/*
 
 # Download Godot editor
 ADD https://github.com/optical002/godot-scala-ci-runner/releases/download/1.0/godot.linuxbsd.editor.x86_64.jvm.0.14.3 /usr/local/bin/godot
-RUN chmod +x /usr/local/bin/godot
+RUN chmod +x /usr/local/bin/godot \
+    && patchelf --set-interpreter /lib64/ld-linux-x86-64.so.2 /usr/local/bin/godot
 
 # Create export templates directory
 RUN mkdir -p /root/.local/share/godot/export_templates/${GODOT_VERSION}
