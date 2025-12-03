@@ -6,8 +6,9 @@ LABEL org.opencontainers.image.licenses=MIT
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV GODOT_VERSION=4.5.1.stable.jvm.0.14.3
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
-# Minimal runtime deps for Godot headless
+# Runtime deps for Godot + JVM
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     libgl1 \
@@ -20,6 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     patchelf \
     git \
     git-lfs \
+    openjdk-17-jre-headless \
     && rm -rf /var/lib/apt/lists/*
 
 # Download Godot editor
