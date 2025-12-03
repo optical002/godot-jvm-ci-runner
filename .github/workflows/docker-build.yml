@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'DOCKERFILE'
+      - 'Dockerfile'
       - '.github/workflows/docker-build.yml'
 
 jobs:
