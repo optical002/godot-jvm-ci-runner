@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openjdk-17-jre-headless \
     openjdk-17-jdk-headless \
     curl \
+    tar \
+    zip \
     unzip \
     gnupg \
     apt-transport-https \
